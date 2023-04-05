@@ -84,9 +84,20 @@ export const post: APIRoute = async context => {
     } = body
     
 
-    $kami_state=$_GET("http://kami.gxwm.cc/api/apix.php?km=".$pwd)   //获取卡密的状态
+    //const $kami_state=$_GET("http://kami.gxwm.cc/api/apix.php?km=".$pwd)   //获取卡密的状态
+
+    const $kami_state=await fetchWithTimeout(
+      'http://kami.gxwm.cc/api/apix.php',
+      {
+        timeout: 10000,
+        method: "POST",
+        body: JSON.stringify({
+          km: pwd,
+        })
+      }
+    )
     if (kami_state && kami_state !== "1") {
-      throw new Error("卡密(".$pwd.")错误或已过期，请联系网站管理员。")
+      throw new Error("卡密错误或已过期，请联系网站管理员。")
     }
 
     if (!messages?.length) {
@@ -256,3 +267,7 @@ export async function genBillingsTable(billings: Billing[]) {
 ${table}
 `
 }
+function $_GET($pwd: any) {
+  throw new Error("Function not implemented.")
+}
+
