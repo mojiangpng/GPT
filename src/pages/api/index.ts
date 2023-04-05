@@ -84,12 +84,13 @@ export const post: APIRoute = async context => {
     } = body
     
 
-    //const $kami_state=$_GET("http://kami.gxwm.cc/api/apix.php?km=".$pwd)   //获取卡密的状态
+ //获取卡密的状态
+  const kami_state 
   fetch('http://kami.gxwm.cc/api/apix.php?km=${pwd}')
   .then(response => response.json())
   .then(data => {
     // 将获取到的数据保存在 kami_state 变量中
-    const kami_state = data;
+     kami_state = data;
     throw new Error("获取到的数据:${kami_state}");
   })
   .catch(error => {
