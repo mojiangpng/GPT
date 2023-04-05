@@ -86,7 +86,7 @@ export const post: APIRoute = async context => {
 
     //const $kami_state=$_GET("http://kami.gxwm.cc/api/apix.php?km=".$pwd)   //获取卡密的状态
 
-    const $kami_state=await fetchWithTimeout(
+    const kami_state=await fetchWithTimeout(
       'http://kami.gxwm.cc/api/apix.php',
       {
         timeout: 10000,
