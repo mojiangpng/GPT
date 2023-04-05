@@ -82,23 +82,9 @@ export const post: APIRoute = async context => {
       password,
       model = defaultModel
     } = body
-    
 
- //获取卡密的状态
-  const kami_state 
-  fetch('http://kami.gxwm.cc/api/apix.php?km=${pwd}')
-  .then(response => response.json())
-  .then(data => {
-    // 将获取到的数据保存在 kami_state 变量中
-     kami_state = data;
-    throw new Error("获取到的数据:${kami_state}");
-  })
-  .catch(error => {
-    throw new Error("获取数据时出现错误：${error}");
-  });
-
-    if (kami_state && kami_state !== "1") {
-      throw new Error("卡密错误或已过期，请联系网站管理员。")
+    if (pwd && pwd !== password) {
+      throw new Error("密码错误或已过期，请微信联系：20011800。")
     }
 
     if (!messages?.length) {
