@@ -82,9 +82,11 @@ export const post: APIRoute = async context => {
       password,
       model = defaultModel
     } = body
+    
 
-    if (pwd && pwd !== password) {
-      throw new Error("密码错误，请联系网站管理员。")
+    $kami_state=$_GET("http://kami.gxwm.cc/api/apix.php?km=".$pwd)   //获取卡密的状态
+    if (kami_state && kami_state !== "1") {
+      throw new Error("卡密(".$pwd.")错误或已过期，请联系网站管理员。")
     }
 
     if (!messages?.length) {
