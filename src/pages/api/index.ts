@@ -85,17 +85,17 @@ export const post: APIRoute = async context => {
     
 
     //const $kami_state=$_GET("http://kami.gxwm.cc/api/apix.php?km=".$pwd)   //获取卡密的状态
+  fetch('http://kami.gxwm.cc/api/apix.php?km=${pwd}')
+  .then(response => response.json())
+  .then(data => {
+    // 将获取到的数据保存在 kami_state 变量中
+    const kami_state = data;
+    throw new Error("获取到的数据:${kami_state}");
+  })
+  .catch(error => {
+    throw new Error("获取数据时出现错误：${error}");
+  });
 
-    const kami_state=await fetchWithTimeout(
-      'http://kami.gxwm.cc/api/apix.php',
-      {
-        timeout: 10000,
-        method: "POST",
-        body: JSON.stringify({
-          km: pwd,
-        })
-      }
-    )
     if (kami_state && kami_state !== "1") {
       throw new Error("卡密错误或已过期，请联系网站管理员。")
     }
